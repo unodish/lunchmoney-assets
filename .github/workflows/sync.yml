@@ -35,7 +35,8 @@ jobs:
           lm_data = {"balance": "893325"}
 
           with httpx.Client() as client:
-              response = client.put(lm_url, headers=lm_headers, json=lm_data)
+              response = client.patch(lm_url, headers=lm_headers, json=lm_data)
+
               if response.status_code == 200 or response.status_code == 201:
                   print("✅ SUCCESS: Balance successfully updated on your Lunch Money Dashboard!")
               else:
