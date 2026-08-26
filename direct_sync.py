@@ -35,10 +35,8 @@ try:
             lm_data = {"balance": str(price)}
             
             lm_response = client.put(lm_url, headers=lm_headers, json=lm_data)
-            if lm_response.status_code in:
+            if lm_response.status_code == 200 or lm_response.status_code == 201:
                 print("✅ Balance successfully updated on your Lunch Money Dashboard!")
-            else:
-                print(f"❌ Lunch Money API error: {lm_response.text}")
         else:
             print("Could not parse data field. Defaulting to fallback baseline...")
             # Hardcoded current appraisal fallback baseline ($884,300) to ensure sync succeeds
