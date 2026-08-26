@@ -3,7 +3,7 @@ name: Sync Property Assets
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 1 * *' # Automatically runs once a month on the 1st
+    - cron: '0 0 1 * *'
 
 jobs:
   sync-assets:
@@ -12,7 +12,15 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Run Lunch Money Sync Tool
-        uses: docker://ghcr.io/iloveitaly/lunchmoney-assets:latest
+      - name: Setup Bun (Fast JavaScript/TypeScript Runtime)
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install Dependencies
+        run: bun install
+
+      - name: Execute Native Asset Sync
+        run: bun run index.ts # Runs the scraper natively without container virtualization
         env:
           LUNCHMONEY_TOKEN: ${{ secrets.LUNCHMONEY_TOKEN }}
