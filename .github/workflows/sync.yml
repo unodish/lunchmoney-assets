@@ -26,7 +26,8 @@ jobs:
         run: npx playwright install chromium
 
       - name: Run Asset Sync
-        run: python main.py mapping.json
+        run: python main.py "--mapping" "mapping.json"
         env:
           LUNCHMONEY_TOKEN: ${{ secrets.LUNCHMONEY_TOKEN }}
+
 
