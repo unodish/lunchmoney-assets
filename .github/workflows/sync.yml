@@ -26,10 +26,9 @@ jobs:
         run: npx playwright install chromium
 
       - name: Run Asset Sync
-        run: python main.py
+        run: python direct_sync.py
         env:
           LUNCH_MONEY_API_KEY: ${{ secrets.LUNCHMONEY_TOKEN }}
-          FIRECRAWL_KEY: "fake_key_to_bypass_check"
 
 
 
