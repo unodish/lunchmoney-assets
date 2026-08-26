@@ -1,9 +1,9 @@
 name: ci
 
 on:
+  workflow_dispatch:
   push:
-    branches:
-      - 'main'
+    branches: [main]
 
 env:
   # required for `gh` cli to work
