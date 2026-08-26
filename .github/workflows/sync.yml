@@ -1,4 +1,4 @@
-name: Property Sync V3
+name: Property Sync V4
 
 on:
   workflow_dispatch:
