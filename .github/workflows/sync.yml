@@ -30,7 +30,7 @@ jobs:
           print("Connecting to live developer portal...")
 
           # Using the official .dev endpoint to bypass firewall checks cleanly
-          lm_url = "https://lunchmoney.dev"
+          lm_url = "https://api.lunchmoney.dev/v2/assets/395514"
           lm_headers = {"Authorization": f"Bearer {api_key}"}
           lm_data = {"balance": "893325"}
 
