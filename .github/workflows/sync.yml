@@ -1,4 +1,4 @@
-name: Sync Property Assets
+name: Live Property Sync
 
 on:
   workflow_dispatch:
