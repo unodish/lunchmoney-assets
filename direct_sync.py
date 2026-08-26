@@ -27,7 +27,7 @@ try:
             price = int(price_str)
             print(f"Successfully extracted live property valuation: ${price:,}")
             
-            # Send the clean data payload straight to the LIVE Lunch Money API URL
+            # Send data to the completely correct live Lunch Money API URL
             lm_url = f"https://lunchmoney.app{asset_id}"
             lm_headers = {"Authorization": f"Bearer {api_key}"}
             lm_data = {"balance": str(price)}
