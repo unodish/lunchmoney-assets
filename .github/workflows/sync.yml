@@ -20,7 +20,7 @@ jobs:
       - name: Install Scraping Tools
         run: |
           python -m pip install --upgrade pip
-          pip install playright httpx
+          pip install .
 
       - name: Install Web Engines
         run: npx playwright install chromium
