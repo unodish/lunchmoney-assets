@@ -35,7 +35,7 @@ jobs:
               data_1 = {"balance": "893325"}
               
               res_1 = client.put(url_1, headers=lm_headers, json=data_1)
-              if res_1.status_code in:
+              if res_1.status_code == 200 or res_1.status_code == 201:
                   print("✅ Primary Home balance successfully updated!")
               else:
                   print(f"❌ Primary Home error: {res_1.text}")
@@ -46,7 +46,7 @@ jobs:
               data_2 = {"balance": "594700"}
               
               res_2 = client.put(url_2, headers=lm_headers, json=data_2)
-              if res_2.status_code in:
+              if res_2.status_code == 200 or res_2.status_code == 201:
                   print("✅ Investment Property balance successfully updated!")
               else:
                   print(f"❌ Investment Property error: {res_2.text}")
