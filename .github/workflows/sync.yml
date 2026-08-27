@@ -17,38 +17,32 @@ jobs:
       - name: Install HTTP Helper
         run: pip install httpx
 
-      - name: Send Balance to Lunch Money
+      # --- PROPERTY 1: Primary Home ---
+      - name: Sync Primary Home Balance
         env:
           LUNCH_MONEY_API_KEY: ${{ secrets.LUNCHMONEY_TOKEN }}
         run: |
-          cat << 'EOF' > live_sync.py
-          import os
-          import httpx
-
+          python -c '
+          import os, httpx
           api_key = os.environ.get("LUNCH_MONEY_API_KEY")
-          lm_headers = {"Authorization": f"Bearer {api_key}"}
+          headers = {"Authorization": f"Bearer {api_key}"}
+          url = "https://lunchmoney.dev"
+          res = httpx.put(url, headers=headers, json={"balance": "893325"})
+          print("✅ Primary Home Status:", res.status_code)
+          if res.status_code not in: print("Error:", res.text)
+          '
 
-          with httpx.Client() as client:
-              # --- PROPERTY 1: Primary Home ---
-              print("Updating Primary Home (Asset 395514)...")
-              url_1 = "https://lunchmoney.dev"
-              data_1 = {"balance": "893325"}
-              
-              res_1 = client.put(url_1, headers=lm_headers, json=data_1)
-              if res_1.status_code == 200 or res_1.status_code == 201:
-                  print("✅ Primary Home balance successfully updated!")
-              else:
-                  print(f"❌ Primary Home error: {res_1.text}")
-
-              # --- PROPERTY 2: Investment Property ---
-              print("Updating Investment Property (Asset 396300)...")
-              url_2 = "https://lunchmoney.dev"
-              data_2 = {"balance": "594700"}
-              
-              res_2 = client.put(url_2, headers=lm_headers, json=data_2)
-              if res_2.status_code == 200 or res_2.status_code == 201:
-                  print("✅ Investment Property balance successfully updated!")
-              else:
-                  print(f"❌ Investment Property error: {res_2.text}")
-          EOF
-          python live_sync.py
+      # --- PROPERTY 2: Investment Property ---
+      - name: Sync Investment Property Balance
+        env:
+          LUNCH_MONEY_API_KEY: ${{ secrets.LUNCHMONEY_TOKEN }}
+        run: |
+          python -c '
+          import os, httpx
+          api_key = os.environ.get("LUNCH_MONEY_API_KEY")
+          headers = {"Authorization": f"Bearer {api_key}"}
+          url = "https://lunchmoney.dev"
+          res = httpx.put(url, headers=headers, json={"balance": "594700"})
+          print("✅ Investment Property Status:", res.status_code)
+          if res.status_code not in: print("Error:", res.text)
+          '
