@@ -1,1 +1,54 @@
+name: Live Property Sync
 
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 1 * *'
+
+jobs:
+  sync-assets:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install HTTP Helper
+        run: pip install httpx
+
+      - name: Send Balance to Lunch Money
+        env:
+          LUNCH_MONEY_API_KEY: ${{ secrets.LUNCHMONEY_TOKEN }}
+        run: |
+          cat << 'EOF' > live_sync.py
+          import os
+          import httpx
+
+          api_key = os.environ.get("LUNCH_MONEY_API_KEY")
+          lm_headers = {"Authorization": f"Bearer {api_key}"}
+
+          with httpx.Client() as client:
+              # --- PROPERTY 1: Primary Home ---
+              print("Updating Primary Home (Asset 395514)...")
+              url_1 = "https://lunchmoney.dev"
+              data_1 = {"balance": "893325"}
+              
+              res_1 = client.put(url_1, headers=lm_headers, json=data_1)
+              if res_1.status_code in:
+                  print("✅ Primary Home balance successfully updated!")
+              else:
+                  print(f"❌ Primary Home error: {res_1.text}")
+
+              # --- PROPERTY 2: Investment Property ---
+              print("Updating Investment Property (Asset 396300)...")
+              url_2 = "https://lunchmoney.dev"
+              data_2 = {"balance": "594700"}
+              
+              res_2 = client.put(url_2, headers=lm_headers, json=data_2)
+              if res_2.status_code in:
+                  print("✅ Investment Property balance successfully updated!")
+              else:
+                  print(f"❌ Investment Property error: {res_2.text}")
+          EOF
+          python live_sync.py
