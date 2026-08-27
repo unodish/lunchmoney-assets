@@ -29,7 +29,7 @@ jobs:
           url = "https://lunchmoney.dev"
           res = httpx.put(url, headers=headers, json={"balance": "893325"})
           print("✅ Primary Home Status:", res.status_code)
-          if res.status_code not in: print("Error:", res.text)
+          if res.status_code != 200 and res.status_code != 201: print("Error:", res.text)
           '
 
       # --- PROPERTY 2: Investment Property ---
@@ -44,5 +44,5 @@ jobs:
           url = "https://lunchmoney.dev"
           res = httpx.put(url, headers=headers, json={"balance": "594700"})
           print("✅ Investment Property Status:", res.status_code)
-          if res.status_code not in: print("Error:", res.text)
+          if res.status_code != 200 and res.status_code != 201: print("Error:", res.text)
           '
